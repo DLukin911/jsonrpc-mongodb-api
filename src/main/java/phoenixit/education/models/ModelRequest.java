@@ -2,6 +2,7 @@ package phoenixit.education.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -12,6 +13,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
+@RequiredArgsConstructor
 public class ModelRequest {
 
   private String id;

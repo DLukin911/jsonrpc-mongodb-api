@@ -3,6 +3,7 @@ package phoenixit.education.jsonRPC;
 import com.googlecode.jsonrpc4j.JsonRpcParam;
 import com.googlecode.jsonrpc4j.JsonRpcService;
 import java.util.List;
+import phoenixit.education.models.ModelRequest;
 import phoenixit.education.models.ModelResponse;
 
 /**
@@ -11,15 +12,13 @@ import phoenixit.education.models.ModelResponse;
 @JsonRpcService("/api")
 public interface JsonRpcApi {
 
-  ModelResponse create(@JsonRpcParam(value = "name") String name,
-      @JsonRpcParam(value = "comment") String comment);
+  ModelResponse create(@JsonRpcParam(value = "request") ModelRequest modelRequest);
 
-  ModelResponse update(@JsonRpcParam(value = "id") String id,
-      @JsonRpcParam(value = "name") String name, @JsonRpcParam(value = "comment") String comment);
+  ModelResponse update(@JsonRpcParam(value = "request") ModelRequest modelRequest);
 
-  int delete(@JsonRpcParam(value = "id") String id);
+  int delete(@JsonRpcParam(value = "request") ModelRequest modelRequest);
 
-  ModelResponse get(@JsonRpcParam(value = "id") String id);
+  ModelResponse get(@JsonRpcParam(value = "request") ModelRequest modelRequest);
 
   List<ModelResponse> getAll();
 }

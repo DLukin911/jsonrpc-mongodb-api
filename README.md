@@ -12,21 +12,22 @@ Sending POST request ("application/json") to the address - http://localhost:8080
 
 Creating Models:
 ```
-{"jsonrpc": "2.0", "method": "create", "params": {"name": "Vanya", "comment": "Hello"}, "id": 1}
+{"id": "1", "jsonrpc": "2.0", "method": "create", "params": {"request": {"name": "NewSolar", "comment": "New comment"}}}
 ```
 Update Model:
 ```
-{"jsonrpc": "2.0", "method": "update", "params": {"id": "62e695891b8d1111bc02b3d2", "name": "Vanya2", "comment": "Hello2"}, "id": 2}
+{"id": "2", "jsonrpc": "2.0", "method": "update",
+ "params": {"request": {"id": "62e6e143a5d1507b33d1df3a", "name": "UpdateSolar", "comment": "Update comment"}}}
 ```
 Delete Model:
 ```
-{"jsonrpc": "2.0", "method": "delete", "params": {"id": "62e6962c1b8d1111bc02b3d3"}, "id": 3}
+{"id": "3", "jsonrpc": "2.0", "method": "delete", "params": {"request": {"id": "62e6e15cc0f9951c26ea7c7a"}}}
 ```
 Get Model:
 ```
-{"jsonrpc": "2.0", "method": "get", "params": {"id": "62e6962c1b8d1111bc02b3d3"}, "id": 4}
+{"id": "4", "jsonrpc": "2.0", "method": "get", "params": {"request": {"id": "62e6e15cc0f9951c26ea7c7a"}}}
 ```
 Get All Model:
 ```
-{"jsonrpc": "2.0", "method": "getAll", "id": 5}
+{"id": 5, "jsonrpc": "2.0", "method": "getAll"}
 ```

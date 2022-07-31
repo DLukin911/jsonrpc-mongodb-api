@@ -1,5 +1,6 @@
 package phoenixit.education.services;
 
+import com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImpl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import phoenixit.education.exceptions.NotFoundException;
+import phoenixit.education.jsonRPC.JsonRpcApi;
 import phoenixit.education.models.Model;
 import phoenixit.education.models.ModelRequest;
 import phoenixit.education.models.ModelResponse;
@@ -18,12 +20,14 @@ import phoenixit.education.util.MapperUtil;
  * Class for service operations with entities.
  */
 @Service
+@AutoJsonRpcServiceImpl
 @RequiredArgsConstructor
 @Slf4j
-public class ModelService {
+public class ModelService implements JsonRpcApi {
 
   private final ModelRepository modelRepository;
 
+  @Override
   public ModelResponse create(ModelRequest modelRequest) {
     log.info("Creating a new model on ModelRequest: {}", modelRequest);
     if (modelRequest == null || modelRequest.getName() == null) {
@@ -35,6 +39,7 @@ public class ModelService {
     return MapperUtil.INSTANCE.convertToResponse(modelRepository.insert(model));
   }
 
+  @Override
   @Transactional
   public ModelResponse update(ModelRequest modelRequest) {
     log.info("Update model on ModelRequest: {}", modelRequest);
@@ -53,6 +58,7 @@ public class ModelService {
     return MapperUtil.INSTANCE.convertToResponse(modelRepository.save(model));
   }
 
+  @Override
   public int delete(ModelRequest modelRequest) {
     log.info("Delete model on ModelRequest: {}", modelRequest);
     if (modelRequest.getId() == null) {
@@ -68,6 +74,7 @@ public class ModelService {
     return 1;
   }
 
+  @Override
   public ModelResponse get(ModelRequest modelRequest) {
     log.info("Get model on ModelRequest: {}", modelRequest);
     if (modelRequest.getId() == null) {
@@ -82,6 +89,7 @@ public class ModelService {
     return MapperUtil.INSTANCE.convertToResponse(model);
   }
 
+  @Override
   public List<ModelResponse> getAll() {
     log.info("Get All models from repository");
     List<Model> modelList = modelRepository.findAll();
