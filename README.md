@@ -15,7 +15,7 @@ docker-compose up
 
 Sending POST request ("application/json") to the address - http://localhost:8080/api
 
-Creating Models:
+Create Model:
 ```
 {"id": "1", "jsonrpc": "2.0", "method": "create", "params": {"request": {"name": "NewSolar", "comment": "New comment"}}}
 ```
@@ -31,7 +31,7 @@ Get Model:
 ```
 {"id": "4", "jsonrpc": "2.0", "method": "get", "params": {"request": {"id": "62e6e15cc0f9951c26ea7c7a"}}}
 ```
-Get All Model:
+Get All Models:
 ```
 {"id": 5, "jsonrpc": "2.0", "method": "getAll"}
 ```
