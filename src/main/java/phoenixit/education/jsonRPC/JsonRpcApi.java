@@ -12,13 +12,13 @@ import phoenixit.education.models.ModelResponse;
 @JsonRpcService("/api")
 public interface JsonRpcApi {
 
-  ModelResponse create(@JsonRpcParam(value = "request") ModelRequest modelRequest);
+  ModelResponse create(@JsonRpcParam(value = "request") ModelRequest request);
 
-  ModelResponse update(@JsonRpcParam(value = "request") ModelRequest modelRequest);
+  ModelResponse update(@JsonRpcParam(value = "request") ModelRequest request);
 
-  int delete(@JsonRpcParam(value = "request") ModelRequest modelRequest);
+  int delete(@JsonRpcParam(value = "request") ModelRequest request);
 
-  ModelResponse get(@JsonRpcParam(value = "request") ModelRequest modelRequest);
+  ModelResponse get(@JsonRpcParam(value = "request") ModelRequest request);
 
   List<ModelResponse> getAll();
 }

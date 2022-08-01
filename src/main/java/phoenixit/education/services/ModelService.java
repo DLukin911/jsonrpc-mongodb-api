@@ -25,65 +25,65 @@ import phoenixit.education.util.MapperUtil;
 @Slf4j
 public class ModelService implements JsonRpcApi {
 
-  private final ModelRepository modelRepository;
+  private final ModelRepository repository;
 
   @Override
-  public ModelResponse create(ModelRequest modelRequest) {
-    log.info("Creating a new model on ModelRequest: {}", modelRequest);
-    if (modelRequest == null || modelRequest.getName() == null) {
-      log.warn("Error creating a new model on ModelRequest: {}", modelRequest);
+  public ModelResponse create(ModelRequest request) {
+    log.info("Creating a new model on ModelRequest: {}", request);
+    if (request == null || request.getName() == null) {
+      log.warn("Error creating a new model on ModelRequest: {}", request);
       throw new NotFoundException("No information found for this query.");
     }
-    Model model = MapperUtil.INSTANCE.convertToModel(modelRequest);
+    Model model = MapperUtil.INSTANCE.convertToModel(request);
     model.setCreateAt(new Date());
-    return MapperUtil.INSTANCE.convertToResponse(modelRepository.insert(model));
+    return MapperUtil.INSTANCE.convertToResponse(repository.insert(model));
   }
 
   @Override
   @Transactional
-  public ModelResponse update(ModelRequest modelRequest) {
-    log.info("Update model on ModelRequest: {}", modelRequest);
-    if (modelRequest.getId() == null) {
-      log.warn("Error update model on ModelRequest: {}", modelRequest);
+  public ModelResponse update(ModelRequest request) {
+    log.info("Update model on ModelRequest: {}", request);
+    if (request.getId() == null) {
+      log.warn("Error update model on ModelRequest: {}", request);
       throw new NotFoundException("No information found for this query.");
     }
-    Model model = modelRepository.findById(modelRequest.getId())
+    Model model = repository.findById(request.getId())
         .orElseThrow(() -> {
-          log.warn("Error update model on ModelRequest: {}", modelRequest);
+          log.warn("Error update model on ModelRequest: {}", request);
           return new NotFoundException("No information found for this query.");
         });
-    model.setName(modelRequest.getName());
-    model.setComment(modelRequest.getComment());
+    model.setName(request.getName());
+    model.setComment(request.getComment());
     model.setUpdateAt(new Date());
-    return MapperUtil.INSTANCE.convertToResponse(modelRepository.save(model));
+    return MapperUtil.INSTANCE.convertToResponse(repository.save(model));
   }
 
   @Override
-  public int delete(ModelRequest modelRequest) {
-    log.info("Delete model on ModelRequest: {}", modelRequest);
-    if (modelRequest.getId() == null) {
-      log.warn("Error delete model on ModelRequest: {}", modelRequest);
+  public int delete(ModelRequest request) {
+    log.info("Delete model on ModelRequest: {}", request);
+    if (request.getId() == null) {
+      log.warn("Error delete model on ModelRequest: {}", request);
       throw new NotFoundException("No information found for this query.");
     }
-    Model model = modelRepository.findById(modelRequest.getId())
+    Model model = repository.findById(request.getId())
         .orElseThrow(() -> {
-          log.warn("Error delete model on ModelRequest: {}", modelRequest);
+          log.warn("Error delete model on ModelRequest: {}", request);
           return new NotFoundException("No information found for this query.");
         });
-    modelRepository.deleteById(model.getId());
+    repository.deleteById(model.getId());
     return 1;
   }
 
   @Override
-  public ModelResponse get(ModelRequest modelRequest) {
-    log.info("Get model on ModelRequest: {}", modelRequest);
-    if (modelRequest.getId() == null) {
-      log.warn("Error get model on ModelRequest: {}", modelRequest);
+  public ModelResponse get(ModelRequest request) {
+    log.info("Get model on ModelRequest: {}", request);
+    if (request.getId() == null) {
+      log.warn("Error get model on ModelRequest: {}", request);
       throw new NotFoundException("No information found for this query.");
     }
-    Model model = modelRepository.findById(modelRequest.getId())
+    Model model = repository.findById(request.getId())
         .orElseThrow(() -> {
-          log.warn("Error get model on ModelRequest: {}", modelRequest);
+          log.warn("Error get model on ModelRequest: {}", request);
           return new NotFoundException("No information found for this query.");
         });
     return MapperUtil.INSTANCE.convertToResponse(model);
@@ -92,15 +92,15 @@ public class ModelService implements JsonRpcApi {
   @Override
   public List<ModelResponse> getAll() {
     log.info("Get All models from repository");
-    List<Model> modelList = modelRepository.findAll();
+    List<Model> modelList = repository.findAll();
     if (modelList.isEmpty()) {
       log.warn("Error get all models from repository");
       throw new NotFoundException("No information found for this query.");
     }
-    List<ModelResponse> modelResponseList = new ArrayList<>();
+    List<ModelResponse> modelsResponses = new ArrayList<>();
     for (Model model : modelList) {
-      modelResponseList.add(MapperUtil.INSTANCE.convertToResponse(model));
+      modelsResponses.add(MapperUtil.INSTANCE.convertToResponse(model));
     }
-    return modelResponseList;
+    return modelsResponses;
   }
 }
