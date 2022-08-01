@@ -6,6 +6,11 @@ Implement a service to work with MongoDB.
 
 Java Spring, MongoDB, Maven, GitLab CI, Docker, JSON-RPC.
 
+### Application launch
+```
+docker-compose up
+```
+
 ### API documentation
 
 Sending POST request ("application/json") to the address - http://localhost:8080/api
