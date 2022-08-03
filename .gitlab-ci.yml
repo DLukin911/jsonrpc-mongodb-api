@@ -1,23 +1,9 @@
+image: maven:latest
+
 stages:
-  - build
-  - test
-  - deploy
+  - package
 
-build-job:
-  stage: build
+package:
+  stage: package
   script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
-
-unit-test-job:
-  stage: test
-  script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
-    - echo "Code coverage is 90%"
-
-deploy-job:
-  stage: deploy
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+    - 'mvn package -Dmaven.test.skip.exec'
